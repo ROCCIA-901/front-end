@@ -1,12 +1,8 @@
-// router.js
-import Vue from 'vue';
-import Router from 'vue-router';
-import OnboardingScreen from './components/OnboardingScreen.vue'; // 가정한 컴포넌트 이름
+import { createRouter, createWebHistory } from 'vue-router';
+import OnboardingScreen from '@/components/OnboardingScreen.vue';
 
-Vue.use(Router);
-
-export default new Router({
-  mode: 'history',
+const router = createRouter({
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
@@ -15,3 +11,5 @@ export default new Router({
     }
   ]
 });
+
+export default router;

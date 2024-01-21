@@ -1,16 +1,23 @@
 <template>
   <div class="responsive-container">
-    <img :src="imageSrc" alt="온보딩 화면" class="responsive-image" />
+    <!-- OnboardingScreen 컴포넌트 사용 -->
+    <OnboardingScreen />
   </div>
 </template>
 
 <script>
+
+import OnboardingScreen from '@/components/OnboardingScreen.vue';
+
 export default {
   data() {
     return {
       // 이미지 파일의 경로를 정확하게 설정해야 합니다.
-      imageSrc: require('@/assets/온보딩 화면.png')
+      imageSrc: require('@/assets/onboarding_screen.png')
     }
+  },
+  components: {
+    OnboardingScreen: OnboardingScreen,
   }
 }
 </script>
