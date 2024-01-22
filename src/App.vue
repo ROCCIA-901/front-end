@@ -1,45 +1,69 @@
 <template>
-  <div class="responsive-container">
-    <!-- OnboardingScreen 컴포넌트 사용 -->
-    <OnboardingScreen />
+  <div id="app">
+    <router-view></router-view>
+  </div>
+  <div class="app-container">
+    <div class="responsive-container">
+    </div>
   </div>
 </template>
 
 <script>
 
-import OnboardingScreen from '@/components/OnboardingScreen.vue';
-
-export default {
-  data() {
-    return {
-      // 이미지 파일의 경로를 정확하게 설정해야 합니다.
-      imageSrc: require('@/assets/onboarding_screen.png')
-    }
-  },
-  components: {
-    OnboardingScreen: OnboardingScreen,
-  }
-}
 </script>
 
 <style>
-/* 모든 화면 크기에 대해 이미지가 컨테이너에 맞게 조정되도록 설정합니다. */
-.responsive-image {
-  max-width: 100%;
-  height: auto;
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 97.5vh; /* 전체 화면 높이에 맞춥니다 */
 }
 
-/* 뷰포트의 크기에 따라 컨테이너의 최대 너비를 조정합니다. */
+.responsive-container {
+  flex-grow: 1; /* 남은 공간을 채우도록 설정 */
+  display: flex;
+  justify-content: center; /* 중앙 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+  max-width: 100%;
+  height: 80%;
+  overflow: hidden;
+  margin: auto;
+}
+
 @media (min-width: 600px) {
   .responsive-container {
-    max-width: 500px; /* 데스크톱 화면에서 이미지의 최대 크기를 설정합니다. */
-    margin: auto; /* 가운데 정렬 */
+    max-width: 500px;
   }
 }
 
 @media (max-width: 599px) {
   .responsive-container {
-    max-width: 100%; /* 모바일 화면에서 이미지가 전체 폭을 차지하도록 설정합니다. */
+    max-width: 100%;
   }
 }
 </style>
+
+<!-- <template>
+  <div class="app-container" @click="goToNextPage">
+    
+  </div>
+</template>
+
+<script>
+
+import login_main from '@/components/login_main.vue';
+
+export default {
+  // 데이터 및 컴포넌트 정의
+
+  methods: {
+    goToNextPage() {
+      this.$router.push('/login-main');
+    }
+  },
+
+  // 나머지 코드
+}
+</script>
+
+ -->
