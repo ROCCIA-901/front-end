@@ -1,13 +1,20 @@
 <template>
     <div class="login-container">
       <img src="@/assets/ROCCIA_LOGO.png" alt="ROCCIA Logo" class="login-logo" />
-      <input type="email" v-model="email" placeholder="이메일" />
-      <input type="password" v-model="password" placeholder="비밀번호" />
-      <button @click="login">로그인</button>
+      <div class="email-group">
+        <label for="email">비밀번호 찾기</label>
+        <input id="email" type="email" v-model="email" placeholder="이메일을 입력해주세요" />
+        <button class="btn" @click="checkEmail">인증번호 받기</button>
+      </div>
+      <div class="certification-group">
+        <input type="password" v-model="password" placeholder="인증번호를 입력해주세요" />
+        <button class="btn" @click="confirmEmail">인증번호 확인</button>
+       </div> 
+      <button class="btn" @click="login">이메일 인증으로 비밀번호 변경하기</button>
       <div class="message" v-if="loginError">{{ errorMessage }}</div>
       <div class="links">
         <router-link to="/sign_up">회원가입</router-link> |
-        <router-link to="/forgot_password">비밀번호 찾기</router-link>
+        <router-link to="/forgot-password">비밀번호 찾기</router-link>
       </div>
     </div>
   </template>
@@ -27,7 +34,7 @@ export default {
       login() {
         this.axios.post('/api/login', { email: this.email, password: this.password })
         .then(() => {
-          this.$router.push('/main'); //member,officer
+          this.$router.push('/main');
         })
         .catch(this.handleLoginError);
       },
@@ -57,7 +64,7 @@ export default {
   margin: 0 auto 20px; /* 중앙 정렬과 아래쪽 마진 */
 }
 
-input[type=email], input[type=password] {
+.input[type=email], input[type=password] {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
@@ -65,7 +72,7 @@ input[type=email], input[type=password] {
   border-radius: 5px;
 }
 
-button {
+.button {
   width: 100%;
   padding: 10px;
   border: none;
@@ -75,7 +82,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.button:hover {
   background-color: #45a049;
 }
 
@@ -96,5 +103,21 @@ button:hover {
 .links a:hover {
   text-decoration: underline;
 }
+
+.email-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 레이블을 왼쪽 상단으로 정렬 */
+}
+
+.email-group label {
+  margin-bottom: 5px;
+}
+
+.email-group input,
+.email-group button {
+  width: 100%; /* 폭을 100%로 설정 */
+  margin-top: 5px; /* 레이블과의 간격 */
+}
+
 </style>
-  

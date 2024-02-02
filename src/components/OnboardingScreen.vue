@@ -1,7 +1,4 @@
 <template>
-  <div id="app">
-    <router-view></router-view>
-  </div>
   <div class="app-container">
     <div class="responsive-container">
     <img :src="imageSrc" alt="온보딩 화면" class="responsive-image" />

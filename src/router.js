@@ -1,11 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import OnboardingScreen from '@/components/OnboardingScreen.vue';
 import login_main from '@/components/login_main.vue';
-//import signup from '@/components/signup.vue';
-//import ForgotPassword from '@/components/ForgotPassword.vue';
-//import NewPassword from '@/components/NewPassword.vue';
-//import Main_crew from '@/components/Main_crew.vue';
-//import Main_cap from '@/components/Main_cap.vue';
+import sign_up from '@/components/sign_up.vue';
+import forgot_password from '@/components/forgot_password.vue';
+import new_password from '@/components/new_password.vue';
+import member_main from '@/components/member_main.vue';
+import member_attendance from '@/components/member_attendance.vue';
+import member_attendance_history from '@/components/member_attendance_history.vue';
+import member_record_main from '@/components/member_record_main.vue';
+import member_ranking from '@/components/member_ranking.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -20,31 +23,46 @@ const router = createRouter({
       name: 'login_main',
       component: login_main
     },
-    /*{
-      path: '/signup',
-      name: 'signup',
-      component: signup
+    {
+      path: '/sign_up',
+      name: 'sign_up',
+      component: sign_up
     },
     {
-      path: '/ForgotPassword',
-      name: 'ForgotPassword',
-      component: ForgotPassword.vue'
-    }
+      path: '/forgot_password',
+      name: 'forgot_password',
+      component: forgot_password
+    },
     {
-      path: '/NewPassword',
-      name: 'NewPassword',
-      component: NewPassword.vue'
-    }
+      path: '/new_password',
+      name: 'new_password',
+      component: new_password
+    },
     {
-      path: '/main',
-      name: 'main',
-      component: main.vue'
-    }
+      path: '/member_main',
+      name: 'member_main',
+      component: member_main
+    },
     {
-      path: '/admin',
-      name: 'admin',
-      component: admin.vue'
-    }*/
+      path: '/member_attendance',
+      name: 'memeber_attendance',
+      component: member_attendance
+    },
+    {
+      path: '/member_attendance_history',
+      name: 'memeber_attendance_history',
+      component: member_attendance_history
+    },
+    {
+      path: '/member_record_main',
+      name: 'member_record_main',
+      component: member_record_main
+    },
+    {
+      path: '/member_ranking',
+      name: 'member_ranking',
+      component: member_ranking
+    }
   ]
 });
 

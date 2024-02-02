@@ -1,9 +1,15 @@
 <template>
     <div class="login-container">
       <img src="@/assets/ROCCIA_LOGO.png" alt="ROCCIA Logo" class="login-logo" />
-      <input type="email" v-model="email" placeholder="이메일" />
-      <input type="password" v-model="password" placeholder="비밀번호" />
-      <button @click="login">로그인</button>
+      <div class="email-group">
+        <label for="email">새 비밀번호</label>
+        <input id="email" type="email" v-model="email" placeholder="영문, 숫자, 특수문자를 포함하여 7자 이상 입력해주세요." />
+      </div>
+      <div class="certification-group">
+        <label for="password">새 비밀번호 확인</label>
+        <input id="password" type="password" v-model="password" placeholder="비밀번호를 다시 한 번 입력해주세요." />
+        <button @click="login">비밀번호 변경하기</button>
+      </div>
       <div class="message" v-if="loginError">{{ errorMessage }}</div>
       <div class="links">
         <router-link to="/sign_up">회원가입</router-link> |
@@ -27,7 +33,7 @@ export default {
       login() {
         this.axios.post('/api/login', { email: this.email, password: this.password })
         .then(() => {
-          this.$router.push('/main'); //member,officer
+          this.$router.push('/main');
         })
         .catch(this.handleLoginError);
       },
@@ -57,7 +63,7 @@ export default {
   margin: 0 auto 20px; /* 중앙 정렬과 아래쪽 마진 */
 }
 
-input[type=email], input[type=password] {
+.input[type=email], input[type=password] {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
@@ -65,7 +71,7 @@ input[type=email], input[type=password] {
   border-radius: 5px;
 }
 
-button {
+.button {
   width: 100%;
   padding: 10px;
   border: none;
@@ -75,9 +81,17 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.button:hover {
   background-color: #45a049;
 }
+
+.certification-group button {
+    margin-bottom: 10px; /* 버튼 간의 간격을 조정 */
+  }
+
+.certification-group button:last-child {
+    margin-bottom: 0; /* 마지막 버튼의 아래쪽 마진을 제거 */
+  }
 
 .message {
   color: red;
@@ -96,5 +110,37 @@ button:hover {
 .links a:hover {
   text-decoration: underline;
 }
+
+.email-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 레이블을 왼쪽 상단으로 정렬 */
+}
+
+.email-group label {
+  margin-bottom: 5px;
+}
+
+.email-group input,
+.email-group button {
+  width: 100%; /* 폭을 100%로 설정 */
+  margin-top: 5px; /* 레이블과의 간격 */
+}
+
+.certification-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 레이블을 왼쪽 상단으로 정렬 */
+}
+
+.certification-group label {
+  margin-bottom: 5px;
+}
+
+.certification-group input,
+.certification-group button {
+  width: 100%; /* 폭을 100%로 설정 */
+  margin-top: 5px; /* 레이블과의 간격 */
+}
+
 </style>
-  
