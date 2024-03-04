@@ -13,6 +13,7 @@
   </template>
   
 <script>
+import axios from 'axios';
 
 export default {
     data() {
@@ -25,22 +26,20 @@ export default {
     },
     methods: {
       login() {
-        this.axios.post('/api/login', { email: this.email, password: this.password })
-        .then(() => {
-          this.$router.push('/main'); //member,officer
-        })
-        .catch(this.handleLoginError);
-      },
-      handleLoginError(error) {
-        this.loginError = true;
-        // 서버에서 반환한 오류 메시지를 사용하거나, 없다면 기본 메시지를 사용합니다.
-        this.errorMessage = error.response && error.response.data.message
-          ? error.response.data.message
-          : '아이디나 비밀번호가 정확하지 않습니다.';
-        console.error('Login error:', error.response.data);
+        axios.post('https://9ab57ef8-eb16-4da3-b8bf-cee290768a6b.mock.pstmn.io/api/user/login', {
+    "email": "kdw8055@naver.com",
+    "password": "1234"
+    })
+      .then(response => {
+        console.log('success:', response.data);
+        this.$router.push('/main'); //member,officer;
+          })
+      .catch(error => {
+        console.error('failed:', error);
+          })
+        }
       }
-    }
-  }
+}
 </script>
   
 <style>

@@ -79,11 +79,19 @@
 
   <!-- 프로필 이미지 선택 -->
   <div class="profile-image-selector">
-    <label for="profile-image">프로필 이미지</label>
-    <div class="image-options">
-      <img v-for="image in profileImages" :src="image.src" :alt="image.alt" :key="image.src" @click="selectProfileImage(image)">
-    </div>
+  <label for="profile-image">프로필 이미지</label>
+  <div class="image-options">
+    <img v-for="image in profileImages" 
+         :src="require(`@/assets/${image}`)" 
+         :alt="`Profile Image ${image}`" 
+         :key="image" 
+         @click="selectProfileImage(image)"
+          
+         class="profile-image-option">
   </div>
+</div>
+
+
 
   <!-- 소개 텍스트 영역 -->
   <div class="input-group bio-group">
@@ -98,6 +106,8 @@
 
   
   <script>
+  import axios from 'axios';
+
   export default {
     data() {
       return {
@@ -108,29 +118,66 @@
           bio: '',
           profileImage: ''
         },
-        profileImages: [
-          { src: 'path/to/image1.png', alt: 'Description 1' },
-          // ... 다른 이미지 경로와 설명
-        ],
+        profileImages: [ 'image1.svg', 'image2.svg', 'image3.svg', 'image4.svg', 'image5.svg', 'image6.svg', 'image7.svg', 'image8.svg'],
+        selectedImage: null, // 선택된 이미지를 저장할 변수
+        
       };
     },
     methods: {
       checkEmail() {
+        axios.post('https://9ab57ef8-eb16-4da3-b8bf-cee290768a6b.mock.pstmn.io/api/user/request-verification-code', {
+  "email": "kdw8055@naver.com"})
+          .then(response => {
+          console.log('success:', response.data);
+          })
+          .catch(error => {
+          console.error('failed:', error);
+        });
         // 이메일 인증번호 발송 로직
       },
       confirmEmail() {
+        axios.post('https://9ab57ef8-eb16-4da3-b8bf-cee290768a6b.mock.pstmn.io/api/user/verify-verification-code', {
+  "email": "kdw8055@naver.com",
+  "verificationCode": "123456"
+})
+          .then(response => {
+          console.log('+_+success:', response.data);
+          })
+          .catch(error => {
+          console.error('failed:', error);
+        });        
         // 이메일 인증번호 확인 로직
       },
       selectProfileImage(image) {
-        this.user.profileImage = image.src;
+        this.selectedImage = image;
+        console.log(image)
       },
       submitSignup() {
-        // 회원가입 요청 로직
-        console.log('Submitted user:', this.user);
-        // 여기서 axios를 사용하여 서버에 회원가입 요청을 보낼 수 있습니다.
-      }
-    }
-  };
+        axios.post('https://9ab57ef8-eb16-4da3-b8bf-cee290768a6b.mock.pstmn.io/api/user/create', {
+    "email": "kdw8055@naver.com",
+    "password": "1234",
+    "username": "김동욱",
+    "generation": "8기",
+    "role": "staff",
+    "location": "양재",
+    "level": "파랑",
+    "profileImage": 1,
+    "introduction": "안녕하세요. 잘 부탁드립니다."
+})
+          .then(response => {
+          // 성공적으로 요청이 처리된 경우
+          console.log('Signup success:', response.data);
+          this.$router.push('/login_main')
+          // 여기서 응답에 따른 추가 로직 처리 (예: 로그인 페이지로 리다이렉트)
+          })
+          .catch(error => {
+          // 요청 처리 중 오류가 발생한 경우
+          console.error('Signup failed:', error);
+          // 여기서 에러 처리 로직 (예: 사용자에게 에러 메시지 표시)
+        });
+      },    
+  }
+  }
   </script>
   
   <style>
@@ -195,7 +242,32 @@
     width: 100%;
   }
 
-  /* ... 다른 스타일 ... */
+.profile-image-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image-options {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4개의 이미지를 한 줄에 표시 */
+  gap: 10px; /* 이미지 사이의 간격 */
+  margin-bottom: 10px; /* 줄 사이의 간격 */
+}
+
+.profile-image-option {
+  cursor: pointer;
+  border: 2px solid transparent; /* 선택되지 않았을 때의 테두리 */
+  border-radius: 50%; /* 이미지를 원형으로 표시 */
+  width: 60px; /* 이미지의 너비 조정 */
+  height: 60px; /* 이미지의 높이 조정 */
+  object-fit: cover; /* 이미지가 잘리지 않고 꽉 차게 표시 */
+}
+
+.profile-image-option.selected {
+  border-color: #4CAF50; /* 선택됐을 때의 테두리 색상 */
+}
+
 </style>
 
   

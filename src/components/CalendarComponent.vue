@@ -8,6 +8,7 @@
     <div class="day-names">
       <div v-for="day in dayNames" :key="day" class="day-name">{{ day }}</div>
     </div>
+  </div>
     <div class="days">
   <div
     v-for="(day, index) in daysInMonth"
@@ -19,12 +20,10 @@
     {{ day ? day.getDate() : '' }}
   </div>
   </div>
-  </div>
 
   <!-- 모달 창 -->
   <div v-if="showModalFlag" class="modal-overlay" @click.self="closeModal">
-    <div class="modal">
-      <h3>기록하기</h3>
+    <h3>기록하기</h3>
       <!-- 닫기 버튼 -->
       <button @click="closeModal" class="close-modal">&times;</button>
 
@@ -61,7 +60,6 @@
         <!-- 제출 버튼 -->
         <button type="submit">저장하기</button>
       </form>
-    </div>
   </div>
 </template>
 
@@ -116,8 +114,8 @@ export default {
     },
     selectDate(date) {
     this.selectedDate = date;
-    this.showModal(date);
-    this.$emit('dateSelect', date);
+    this.showModal();
+    // this.$emit('dateSelect', date);
   },
   showModal(date) {
     this.record.date = date;
@@ -210,5 +208,18 @@ export default {
 
 .day.is-today {
   background: #e0ffe0;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 </style>
